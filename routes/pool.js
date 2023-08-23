@@ -1,10 +1,10 @@
 import express from 'express';
 import {
-  createPool,
-  deletePool,
-  updatePool,
-  getByPoolId,
-  getAllPools,
+    createPool,
+    deletePool,
+    updatePool,
+    getByPoolId,
+    getAllPools,
 } from '../controllers/pool.js';
 
 const router = express.Router();
