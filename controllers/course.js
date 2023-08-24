@@ -97,7 +97,7 @@ export const uploadImageFiles = async (req, res) => {
     const response = results.map((result) => {
       const { key } = result;
       const presignedUrl = presignedUrls.find((url) => url.includes(key));
-      return { ...result, presignedUrl };
+      return { presignedUrl };
     });
 
     return res.status(201).json({ message: 'Successfully uploaded', response });

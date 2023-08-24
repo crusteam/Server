@@ -33,9 +33,9 @@ const getUserKeys = async (prefix) => {
 };
 
 export const uploadToS3 = async ({ file, prefix }) => {
-  const fileName = file.originalname;
-  const key = `${prefix}/${fileName}`;
-  // const key = `${prefix}/${uuid()}`;
+  // const fileName = file.originalname;
+  // const key = `${prefix}/${uuid}`;
+  const key = `${prefix}/${uuid()}`;
   const command = new PutObjectCommand({
     Bucket: process.env.BUCKET,
     Key: key,
