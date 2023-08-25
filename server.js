@@ -11,6 +11,7 @@ import courseRouter from './routes/course.js';
 import sectionRouter from './routes/section.js';
 import mentorRouter from './routes/mentor.js';
 import poolRouter from './routes/pool.js';
+import coupon from './routes/coupon.js';
 
 import swaggerUi from 'swagger-ui-express'
 
@@ -43,6 +44,7 @@ app.use('/api', courseRouter);
 app.use('/api', sectionRouter);
 app.use('/api', mentorRouter);
 app.use('/api', poolRouter);
+app.use('/api',coupon);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = process.env.PORT || 5000;
