@@ -1,5 +1,6 @@
 import { Course } from '../models/course.js';
 import { Secret } from '../models/userCourse.js';
+import { User } from '../models/user.js';
 
 import slugify from 'slugify';
 
@@ -285,7 +286,7 @@ const sectionImpl = {
 
     async markCompleted(req, res) {
         try {
-            const { slug, slug_section } = req.params;
+            const { slug, slug_section, user_id } = req.body;
 
             const course = await Course.findOne({ slug });
             if (!course) {

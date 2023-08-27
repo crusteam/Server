@@ -25,6 +25,6 @@ router.delete(
 );
 
 router.post('/list-completed', sectionImpl.getCompletedLessons);
-router.post('/course/:slug/sections/:slug_section', sectionImpl.markCompleted);
+router.post('/sections/completed', sectionImpl.markCompleted);
 
 export default router;
