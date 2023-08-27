@@ -299,6 +299,10 @@ const sectionImpl = {
             if (!section) {
                 return res.status(404).json({ message: 'Section not found' });
             }
+            const user = await Secret.findOne({ user_id});
+            if (!user) {
+                return res.status(404).json({ message: 'user not found' });
+            }
 
             const secretDocument = await Secret.findOne({ course_id: slug })
 
