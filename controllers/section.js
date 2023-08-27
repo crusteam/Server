@@ -289,9 +289,9 @@ const sectionImpl = {
             const { course_id, section_id, user_id } = req.body;
 
             const course = await Course.findOne({ slug: course_id });
-            // if (!course) {
-            //     return res.status(404).json({ message: 'Course not found' });
-            // }
+            if (!course) {
+                return res.status(404).json({ message: 'Course not found' });
+            }
 
             // const section = course.sections.find(
             //     (section) => section.slug_section === slug_section,
@@ -299,12 +299,12 @@ const sectionImpl = {
             // if (!section) {
             //     return res.status(404).json({ message: 'Section not found' });
             // }
-            // const user = await Secret.findOne({ user_id});
-            // if (!user) {
-            //     return res.status(404).json({ message: 'user not found' });
-            // }
+            const user = await Secret.findOne({ user_id });
+            if (!user) {
+                return res.status(404).json({ message: 'user not found' });
+            }
 
-            const secretDocument = await Secret.findOne({ course_id });
+            const secretDocument = await Secret.findOne({ course_id, user_id });
 
             // Check if the section has already been completed
             // if (
