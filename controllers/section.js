@@ -307,15 +307,15 @@ const sectionImpl = {
             const secretDocument = await Secret.findOne({ course_id, user_id });
 
             // Check if the section has already been completed
-            // if (
-            //     secretDocument.sectionCompleted.includes(
-            //         section_id
-            //     )
-            // ) {
-            //     return res
-            //         .status(400)
-            //         .json({ message: 'Section already completed' });
-            // }
+            if (
+                secretDocument.sectionCompleted.includes(
+                    section_id
+                )
+            ) {
+                return res
+                    .status(400)
+                    .json({ message: 'Section already completed' });
+            }
 
             // Update the sectionCompleted array
             secretDocument.sectionCompleted.push(section_id);
