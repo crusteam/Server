@@ -286,39 +286,44 @@ const sectionImpl = {
 
     async markCompleted(req, res) {
         try {
-            const { slug, slug_section, user_id } = req.body;
+            const { course_id, section_id, user_id } = req.body;
 
-            const course = await Course.findOne({ slug });
-            if (!course) {
-                return res.status(404).json({ message: 'Course not found' });
-            }
+            // const course = await Course.findOne({ slug: course_id });
+            // if (!course) {
+            //     return res.status(404).json({ message: 'Course not found' });
+            // }
 
-            const section = course.sections.find(
-                (section) => section.slug_section === slug_section,
-            );
-            if (!section) {
-                return res.status(404).json({ message: 'Section not found' });
-            }
+            // const section = course.sections.find(
+            //     (section) => section.slug_section === slug_section,
+            // );
+            // if (!section) {
+            //     return res.status(404).json({ message: 'Section not found' });
+            // }
             // const user = await Secret.findOne({ user_id});
             // if (!user) {
             //     return res.status(404).json({ message: 'user not found' });
             // }
 
-            const secretDocument = await Secret.findOne({ course_id: slug })
+            const secretDocument = await Secret.findOne({ course_id });
 
             // Check if the section has already been completed
-            if (secretDocument.sectionCompleted.includes(slug_section)) {
-                return res.status(400).json({ message: 'Section already completed' });
+            if (
+                secretDocument.sectionCompleted.includes({
+                    section_id: slug_section,
+                })
+            ) {
+                return res
+                    .status(400)
+                    .json({ message: 'Section already completed' });
             }
 
             // Update the sectionCompleted array
-            secretDocument.sectionCompleted.push(slug_section);
+            secretDocument.sectionCompleted.push({ section_id: slug_section });
             await secretDocument.save();
 
-            let completedSectionsCount =
-                secretDocument.sectionCompleted.length;
+            let completedSectionsCount = secretDocument.sectionCompleted.length;
 
-              console.log(completedSectionsCount);
+            console.log(completedSectionsCount);
             if (secretDocument) {
                 if (completedSectionsCount === course.sections.length) {
                     secretDocument.hashed_sent += secretDocument.hash_secret;
@@ -331,7 +336,7 @@ const sectionImpl = {
                     await secretDocument.save();
                 }
             }
-            res.json({secretDocument });
+            res.json({ secretDocument });
         } catch (error) {
             console.error('Error marking completed:', error);
             res.status(500).json({

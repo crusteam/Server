@@ -30,7 +30,7 @@ const hashed = {
     getDataWithSecret: async (req, res) => {
         try {
             const { course_id, user_id } = req.body;
-            const data = await Secret.findOne({ course_id }).exec();
+            const data = await Secret.findOne({ course_id,user_id }).exec();
             console.log(data);
             res.json(data);
         } catch (error) {
